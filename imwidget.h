@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QImage>
 #include <QVector>
+#include <QMouseEvent>
 
 
 class ImWidget : public QWidget
@@ -16,10 +17,11 @@ public:
     void loadQImage_8 (unsigned char *dat, int ns, int nl);
     void makeColorMap(float slope, float offset) ;
     void paintEvent(QPaintEvent *) ;
+    void mousePressEvent (QMouseEvent *ev) ;
     QVector<QRgb> colors ;
 
 signals:
-
+    void imClicked (int *);
 };
 
 #endif // IMWIDGET_H

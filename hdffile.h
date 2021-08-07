@@ -8,7 +8,7 @@ public:
     unsigned char *b1 ;
     int ns, nl, ns_ll, nl_ll ;
     HDFFile(char *ifile);
-    void LL_Fit() ;
+    void LL_Fit(double *, double *) ;
 };
 
 #endif // HDFFILE_H

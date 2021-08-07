@@ -20,7 +20,10 @@ class CReg {
 	CReg () ;
 	~CReg () ;
 	void GetCoefs () ;
-	void  ReadTiepts (char *) ;
+    //void  ReadTiepts (char *) ;
+    // alloc mem for points
+    void setTiepts (double *, double *, float *, float *, int);
+    void setTiepts (float *, float *, float *, float *, int);
 	void  RegData (unsigned char *indat, unsigned char *outdat) ;
 	void  WriteHeader (char *) ;
 

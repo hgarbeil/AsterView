@@ -2,6 +2,8 @@
 #include <QPainter>
 #include <QVector>
 #include <QRgb>
+
+int pointClicked [2] ;
 ImWidget::ImWidget(QWidget *parent) : QWidget(parent)
 {
     qim = 0l ;
@@ -59,5 +61,13 @@ void ImWidget::makeColorMap(float slope, float offset){
     }
     qim->setColorTable(colors);
 
+
+}
+
+
+void ImWidget::mousePressEvent (QMouseEvent *ev){
+    pointClicked[0] = ev->pos().x() ;
+    pointClicked[1] = ev->pos().y() ;
+    emit(imClicked(pointClicked)) ;
 
 }

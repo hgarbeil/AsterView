@@ -1,11 +1,13 @@
 #include "CReg.h"
-#include <fstream.h>
-#include <iostream.h>
+#include <fstream>
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 
+
+void fitfunct (float x, float *p, int np) ;
 
 
 
@@ -23,6 +25,7 @@ CReg::CReg()
 	ns = 4100 ;
 	nl = 4200 ;
 	nbands = 3 ;
+    npts = 121 ;
 
 }
 
@@ -38,6 +41,45 @@ CReg::~CReg()
 	delete [] line ;
 }
 
+void CReg::setTiepts (double *lon, double *lat, float *x, float *y, int npts){
+    int i, j ;
+
+    // alloc mem for points
+    lats = new double [npts] ;
+    lons = new double [npts] ;
+    samp = new float [npts] ;
+    line = new float [npts] ;
+
+    for (i=0; i<npts; i++){
+        lats[i] = lat[i];
+        lons[i] = lon[i];
+        samp[i]= x[i] ;
+        line[i]= y[i];
+    }
+
+
+
+}
+void CReg::setTiepts (float *lon, float *lat, float *x, float *y, int npts){
+    int i, j ;
+
+    // alloc mem for points
+    lats = new double [npts] ;
+    lons = new double [npts] ;
+    samp = new float [npts] ;
+    line = new float [npts] ;
+
+    for (i=0; i<npts; i++){
+        lats[i] = lat[i];
+        lons[i] = lon[i];
+        samp[i]= x[i] ;
+        line[i]= y[i];
+    }
+
+
+
+}
+/*
 void CReg::ReadTiepts (char *infile) 
 {
 	char fline [240] ;
@@ -93,6 +135,8 @@ void CReg::ReadTiepts (char *infile)
 	ifil.close () ;
 	return ;
 }
+
+*/
 		
 
 void CReg::GetCoefs ()
@@ -237,7 +281,7 @@ void CReg::WriteHeader (char *outfile)
 
 	
 
-void fitfunct (float x, float p [], int np) 
+void fitfunct (float x, float *p, int np)
 {
 	int j ;
 	extern CReg *crg ;

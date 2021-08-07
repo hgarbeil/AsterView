@@ -1,12 +1,12 @@
 #include "hdffile.h"
-
-
+#include "CReg.h"
 #include <QDebug>
-
+CReg *crg=NULL ;
 using namespace std ;
 HDFFile::HDFFile(char *infile)
 {
 
+    crg = new CReg() ;
     b1 = 0;
     nl = 5113 ;
     ns =  5731 ;
@@ -61,17 +61,19 @@ HDFFile::HDFFile(char *infile)
 
             }
             SDendaccess (sd_id) ;
+            LL_Fit(lon, lat) ;
 }
 
-void HDFFile::LL_Fit(doube *lat, double *lon ){
+void HDFFile::LL_Fit(double *lon, double *lat ){
     int i, j, inum,xstep, ystep ;
-    double *xvals, *yvals, *zvals, *zvals_1, xloc, yloc ;
+    double  *zvals, *zvals_1, xloc, yloc ;
+    float *xvals, *yvals, *latf, *lonf ;
     xstep = 498 ;
     ystep = 420 ;
-    xvals = new double [121] ;
-    yvals = new double [121] ;
-    zvals = new double [121] ;
-    zvals_1 = new double [121] ;
+    xvals = new float [121] ;
+    yvals = new float [121] ;
+    latf = new float [121] ;
+    lonf = new float [121] ;
 
     // first fit x y to lat
     for (i=0; i<11; i++){
@@ -81,10 +83,14 @@ void HDFFile::LL_Fit(doube *lat, double *lon ){
             xloc = j * xstep ;
             xvals [inum] = xloc ;
             yvals [inum] = yloc ;
-            zvals [inum] = lat[inum] ;
-            zvals_1[inum]= lon[inum] ;
+            latf [inum] = lat[i] ;
+            lonf [inum]=lon[i];
+
         }
     }
+    crg->setTiepts (xvals, yvals, lonf, latf, 121 );
 
-
+    crg->GetCoefs() ;
+    int hg = 0 ;
+    hg*=1 ;
 }

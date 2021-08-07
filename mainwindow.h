@@ -24,6 +24,7 @@ private slots:
     void on_off_slider_valueChanged(int value);
 
     void on_updateButton_clicked();
+    void gotClick (int *) ;
 
 private:
     Ui::MainWindow *ui;

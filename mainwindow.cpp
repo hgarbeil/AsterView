@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     delete hf ;
     scaleval = 1. ;
     offval = 0 ;
+    connect (ui->imwidget, SIGNAL(imClicked(int*)), this,SLOT(gotClick(int *) )) ;
 }
 
 MainWindow::~MainWindow()
@@ -51,6 +52,11 @@ void MainWindow::on_scale_slider_valueChanged(int value)
     ui->scaleLabel->setText (qs);
 }
 
+void MainWindow::gotClick (int *pt){
+
+    qDebug () <<"x is : "<< pt[0] ;
+    qDebug () <<"y is : "<< pt[1] ;
+}
 
 void MainWindow::on_off_slider_valueChanged(int value)
 {
